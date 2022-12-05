@@ -26,8 +26,8 @@ public class Calculator {
     {
         // Map<"token", precedence>
         OPERATORS.put("*", 3);
-        OPERATORS.put("/", 3);
-        OPERATORS.put("%", 3);
+        OPERATORS.put("除", 3);
+        OPERATORS.put("R", 3);
         OPERATORS.put("+", 4);
         OPERATORS.put("-", 4);
         OPERATORS.put("^", 2);
@@ -136,9 +136,9 @@ public class Calculator {
                 case "-":
                 case "*":
                 case "GCD":
-                case "/":
+                case "除":
                 case "sqrt":
-                case "%":
+                case "R":
                     // While stack
                     // not empty AND stack top element
                     // and is an operator
@@ -192,10 +192,10 @@ public class Calculator {
                     case "*":
                         result = ent1 * ent2;
                         break;
-                    case "/":
+                    case "除":
                         result = ent2 / ent1;
                         break;
-                    case "%":
+                    case "R":
                         result = ent2 % ent1;  
                         break;
                     case "^":
@@ -257,12 +257,12 @@ public class Calculator {
 
         System.out.println();
 
-        Calculator moduloMath = new Calculator("300 % 200");
+        Calculator moduloMath = new Calculator("300 R 200");
         System.out.println("Modulo Math\n" + moduloMath);
 
         System.out.println();
 
-        Calculator divisionMath = new Calculator("300/200");
+        Calculator divisionMath = new Calculator("300除200");
         System.out.println("Division Math\n" + divisionMath);
         
         System.out.println();
