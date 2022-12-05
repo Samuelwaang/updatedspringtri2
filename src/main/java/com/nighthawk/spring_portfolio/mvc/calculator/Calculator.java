@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
+import java.util.*;
 
 /* In mathematics,
     an expression or mathematical expression is a finite combination of symbols that is well-formed
@@ -29,6 +30,7 @@ public class Calculator {
         OPERATORS.put("%", 3);
         OPERATORS.put("+", 4);
         OPERATORS.put("-", 4);
+        OPERATORS.put("^", 1);
     }
 
     // Helper definition for supported operators
@@ -127,6 +129,7 @@ public class Calculator {
                     }
                     tokenStack.pop();
                     break;
+                case "^":
                 case "+":
                 case "-":
                 case "*":
@@ -191,6 +194,9 @@ public class Calculator {
                     case "%":
                         result = ent2 % ent1;  
                         break;
+                    case "^":
+                        result = Math.pow(ent2, ent1);
+                        break;
                     default:
                         result = null;
                         break;
@@ -241,6 +247,11 @@ public class Calculator {
 
         Calculator divisionMath = new Calculator("300/200");
         System.out.println("Division Math\n" + divisionMath);
+        
+        System.out.println();
+
+        Calculator exponentMath = new Calculator("5^2");
+        System.out.println("Division Math\n" + exponentMath);
 
     }
 }
