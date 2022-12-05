@@ -30,7 +30,8 @@ public class Calculator {
         OPERATORS.put("%", 3);
         OPERATORS.put("+", 4);
         OPERATORS.put("-", 4);
-        OPERATORS.put("^", 1);
+        OPERATORS.put("^", 2);
+        OPERATORS.put("sqrt", 1);
     }
 
     // Helper definition for supported operators
@@ -134,6 +135,7 @@ public class Calculator {
                 case "-":
                 case "*":
                 case "/":
+                case "sqrt":
                 case "%":
                     // While stack
                     // not empty AND stack top element
@@ -197,6 +199,9 @@ public class Calculator {
                     case "^":
                         result = Math.pow(ent2, ent1);
                         break;
+                    case "sqrt":
+                        result = Math.pow(ent2, (1/ent1));
+                        break;    
                     default:
                         result = null;
                         break;
@@ -251,7 +256,12 @@ public class Calculator {
         System.out.println();
 
         Calculator exponentMath = new Calculator("5^2");
-        System.out.println("Division Math\n" + exponentMath);
+        System.out.println("Exponent Math\n" + exponentMath);
+
+        System.out.println();
+
+        Calculator sqrtMath = new Calculator("5 sqrt 2");
+        System.out.println("Exponent Math\n" + sqrtMath);
 
     }
 }
