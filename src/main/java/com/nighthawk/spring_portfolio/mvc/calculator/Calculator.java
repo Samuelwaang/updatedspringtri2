@@ -170,10 +170,31 @@ public class Calculator {
             if (isOperator(token))
             {
                 // Pop the two top entries
-
+                Double ent1 = Double.valueOf(calcStack.pop());
+                Double ent2 = Double.valueOf(calcStack.pop());
+  
                 // Calculate intermediate results
                 result = 0.0;
-
+                switch(token) {
+                    case "+":
+                        result = ent1 + ent2;
+                        break;
+                    case "-":
+                        result = ent2 - ent1;
+                        break;
+                    case "*":
+                        result = ent1 * ent2;
+                        break;
+                    case "/":
+                        result = ent2 / ent1;
+                        break;
+                    case "%":
+                        result = ent2 % ent1;  
+                        break;
+                    default:
+                        result = null;
+                        break;
+                }
                 // Push intermediate result back onto the stack
                 calcStack.push( result );
             }
