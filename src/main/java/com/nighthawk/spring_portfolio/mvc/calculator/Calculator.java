@@ -32,6 +32,7 @@ public class Calculator {
         OPERATORS.put("-", 4);
         OPERATORS.put("^", 2);
         OPERATORS.put("sqrt", 1);
+        OPERATORS.put("GCD", 4);
     }
 
     // Helper definition for supported operators
@@ -134,6 +135,7 @@ public class Calculator {
                 case "+":
                 case "-":
                 case "*":
+                case "GCD":
                 case "/":
                 case "sqrt":
                 case "%":
@@ -201,7 +203,17 @@ public class Calculator {
                         break;
                     case "sqrt":
                         result = Math.pow(ent2, (1/ent1));
-                        break;    
+                        break;
+                    case "GCD":
+                        int gcd = 1;
+                        for (int i = 1; i <= ent2 && i <= ent1; i++) {
+                            if (ent1 % i == 0 && ent2 % i == 0) {
+                                gcd = i;
+                            }
+                        }  
+                        Double d2=Double.valueOf(gcd);
+                        result = d2;  
+                        break;
                     default:
                         result = null;
                         break;
@@ -262,6 +274,11 @@ public class Calculator {
 
         Calculator sqrtMath = new Calculator("5 sqrt 2");
         System.out.println("Exponent Math\n" + sqrtMath);
+
+        System.out.println();
+
+        Calculator gcdMath = new Calculator("12 GCD 8");
+        System.out.println("Greatest Common Denominator\n" + gcdMath);
 
     }
 }
