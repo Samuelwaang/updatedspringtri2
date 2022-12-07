@@ -1,5 +1,5 @@
 package com.nighthawk.spring_portfolio.mvc.lightboard;
-
+import java.util.Scanner;
 import lombok.Data;
 
 @Data  // Annotations to simplify writing code (ie constructors, setters)
@@ -69,10 +69,10 @@ public class LightBoard {
     }
 
     /* Output is intended for Terminal, draws color palette */
-    public String toColorPalette() {
+    public String toColorPalette(int bHeight, int bLength) {
         // block sizes
-        final int ROWS = 5;
-        final int COLS = 10;
+        final int ROWS = bHeight;
+        final int COLS = bLength;
 
         // Build large string for entire color palette
         String outString = "";
@@ -119,9 +119,18 @@ public class LightBoard {
     
     static public void main(String[] args) {
         // create and display LightBoard
-        LightBoard lightBoard = new LightBoard(5, 5);
+        Scanner scan = new Scanner(System.in);
+        System.out.println("enter number of rows");
+        int bRows = scan.nextInt();
+        System.out.println("enter number of columns");
+        int bCols = scan.nextInt();
+        System.out.println("enter height dimension of the boxes");
+        int bHeight = scan.nextInt();
+        System.out.println("enter length dimension of the boxes");
+        int bLength = scan.nextInt();
+        LightBoard lightBoard = new LightBoard(bRows, bCols);
         System.out.println(lightBoard);  // use toString() method
         System.out.println(lightBoard.toTerminal());
-        System.out.println(lightBoard.toColorPalette());
+        System.out.println(lightBoard.toColorPalette(bHeight, bLength));
     }
 }
