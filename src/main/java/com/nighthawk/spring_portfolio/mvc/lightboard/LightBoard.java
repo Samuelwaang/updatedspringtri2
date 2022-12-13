@@ -207,16 +207,8 @@ public class LightBoard {
     }
 
     public void turnOff(int zrow, int zcol) {
-        if (lights[zrow][zcol].isOn()) {
-            lights[zrow][zcol].setOn(false);
-        }
-        else {
-            lights[zrow][zcol].setOn(true);
-        }
-        System.out.println("Toggled light " + zrow + ", " + zcol + " to " + lights[zrow][zcol].isOn() + "!");
+        lights[zrow][zcol].setOn(false);
     }
-        // lights[zrow][zcol].setOn(false);
-    //}
 
     static public void main(String[] args) {
         // create and display LightBoard
