@@ -3,9 +3,6 @@ package com.nighthawk.spring_portfolio.mvc.lightboard;
 import java.util.HashMap;
 import java.util.Map;
 
-import lombok.Data;
-
-@Data  // Annotations to simplify writing code (ie constructors, setters)
 public class Light {
     boolean on;
     short red;
@@ -45,6 +42,7 @@ public class Light {
     public Light() {
         int maxColor = 255;
         int effect = 9;
+        this.on = true;
         this.red = (short) (Math.random()*(maxColor+1));
         this.green = (short) (Math.random()*(maxColor+1));
         this.blue = (short) (Math.random()*(maxColor+1));
@@ -66,6 +64,7 @@ public class Light {
     /* toString output as key/values */
     public String toString() {
         return( "{" + 
+            "\"is on\": " + on + "," +
             "\"red\": " + red + "," +
             "\"green\": " +  green + "," + 
             "\"blue\": " + blue + "," +
@@ -73,9 +72,41 @@ public class Light {
             "}" );
     }
 
+    public void RGBset(short rvalue, short gvalue, short bvalue) {
+        this.red = rvalue;
+        this.green = gvalue;
+        this.blue = bvalue;
+    }
+
+    public boolean isOn() {
+        return this.on;
+    }
+
+    public void setOn(boolean on) {
+        this.on = on;
+    }
+
+    public short getRed() {
+        return red;
+    }
+
+    public short getGreen() {
+        return green;
+    }
+
+    public short getBlue() {
+        return blue;
+    }
+
+    public short getEffect() {
+        return effect;
+    }
+
     static public void main(String[] args) {
         // create and display LightBoard
         Light light = new Light();
         System.out.println(light);  // use toString() method
     }
+    
+
 }

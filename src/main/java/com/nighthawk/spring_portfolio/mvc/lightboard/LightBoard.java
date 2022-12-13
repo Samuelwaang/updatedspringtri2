@@ -15,6 +15,7 @@ public class LightBoard {
                 lights[row][col] = new Light();  // each cell needs to be constructed
             }
         }
+
     }
 
     /* Output is intended for API key/values */
@@ -55,6 +56,8 @@ public class LightBoard {
                 lights[row][col].getEffect() + "m" +
                 // data, extract custom getters
                 "{" +
+                "\"" + "isOn\": " + lights[row][col].isOn() +
+                "," +
                 "\"" + "RGB\": " + "\"" + lights[row][col].getRGB() + "\"" +
                 "," +
                 "\"" + "Effect\": " + "\"" + lights[row][col].getEffectTitle() + "\"" +
@@ -85,7 +88,8 @@ public class LightBoard {
                     // repeat each column for block size
                     for (int j = 0; j < COLS; j++) {
                         // print single character, except at midpoint print color code
-                        String c = (i == (int) (ROWS / 2) && j == (int) (COLS / 2) ) 
+                        if (lights[row][col].isOn()) {
+                            String c = (i == (int) (ROWS / 2) && j == (int) (COLS / 2) ) 
                             ? lights[row][col].getRGB()
                             : (j == (int) (COLS / 2))  // nested ternary
                             ? " ".repeat(lights[row][col].getRGB().length())
@@ -107,6 +111,8 @@ public class LightBoard {
 
                         // reset
                         "\033[m";
+                        }
+                        
                     }
                 }
                 outString += "\n";
@@ -117,6 +123,101 @@ public class LightBoard {
 		return outString;
     }
     
+    public void flag(String flag) {
+        if(flag == "France") {
+            short rv = 0;
+            short gv = 0;
+            short bv = 255;
+
+            for (int rowz = 0; rowz < 5; rowz++) {
+                for (int colz = 0; colz < 3; colz++) {
+                    lights[rowz][colz].RGBset(rv,gv,bv);
+                }
+            } 
+            short rva = 255;
+            short gva = 255;
+            short bva = 255;
+
+            for (int rowz = 0; rowz < 5; rowz++) {
+                for (int colz = 3; colz < 6; colz++) {
+                    lights[rowz][colz].RGBset(rva,gva,bva);
+                }
+            } 
+            short rvb = 255;
+            short gvb = 0;
+            short bvb = 0;
+
+            for (int rowz = 0; rowz < 5; rowz++) {
+                for (int colz = 6; colz < 9; colz++) {
+                    lights[rowz][colz].RGBset(rvb,gvb,bvb);
+                }
+            } 
+        }
+
+        if(flag == "England") {
+            short rv = 255;
+            short gv = 255;
+            short bv = 255;
+
+            for (int rowz = 0; rowz < 5; rowz++) {
+                for (int colz = 0; colz < 9; colz++) {
+                    lights[rowz][colz].RGBset(rv,gv,bv);
+                }
+            } 
+            short r = 255;
+            short g = 0;
+            short b = 0;
+            for (int rowz = 0; rowz < 5; rowz++) {
+                for (int colz = 4; colz < 5; colz++) {
+                    lights[rowz][colz].RGBset(r,g,b);
+                }
+            } 
+            for (int rowz = 2; rowz < 3; rowz++) {
+                for (int colz = 0; colz < 9; colz++) {
+                    lights[rowz][colz].RGBset(r,g,b);
+                }
+            }
+        }
+
+        if(flag == "Switzerland") {
+            short rv = 255;
+            short gv = 0;
+            short bv = 0;
+
+            for (int rowz = 0; rowz < 5; rowz++) {
+                for (int colz = 0; colz < 9; colz++) {
+                    lights[rowz][colz].RGBset(rv,gv,bv);
+                }
+            } 
+            short r = 255;
+            short g = 255;
+            short b = 255;
+            for (int rowz = 2; rowz < 3; rowz++) {
+                for (int colz = 3; colz < 6; colz++) {
+                    lights[rowz][colz].RGBset(r,g,b);
+                }
+            }
+            for (int rowz = 1; rowz < 4; rowz++) {
+                for (int colz = 4; colz < 5; colz++) {
+                    lights[rowz][colz].RGBset(r,g,b);
+                }
+            } 
+        } 
+
+    }
+
+    public void turnOff(int zrow, int zcol) {
+        if (lights[zrow][zcol].isOn()) {
+            lights[zrow][zcol].setOn(false);
+        }
+        else {
+            lights[zrow][zcol].setOn(true);
+        }
+        System.out.println("Toggled light " + zrow + ", " + zcol + " to " + lights[zrow][zcol].isOn() + "!");
+    }
+        // lights[zrow][zcol].setOn(false);
+    //}
+
     static public void main(String[] args) {
         // create and display LightBoard
         Scanner scan = new Scanner(System.in);
@@ -129,8 +230,20 @@ public class LightBoard {
         System.out.println("enter length dimension of the boxes");
         int bLength = scan.nextInt();
         LightBoard lightBoard = new LightBoard(bRows, bCols);
+        
         System.out.println(lightBoard);  // use toString() method
         System.out.println(lightBoard.toTerminal());
         System.out.println(lightBoard.toColorPalette(bHeight, bLength));
+        lightBoard.turnOff(0, 0);
+        System.out.println(lightBoard.toTerminal());
+        System.out.println(lightBoard.toColorPalette(bHeight, bLength));
+        
+        LightBoard flagBoard = new LightBoard(5, 9);
+        flagBoard.flag("France");
+        System.out.println(flagBoard.toColorPalette(4, 4));
+        flagBoard.flag("Switzerland");
+        System.out.println(flagBoard.toColorPalette(4, 4));
+        flagBoard.flag("England");
+        System.out.println(flagBoard.toColorPalette(4, 4));
     }
 }

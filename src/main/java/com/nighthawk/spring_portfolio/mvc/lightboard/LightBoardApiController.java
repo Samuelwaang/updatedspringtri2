@@ -1,33 +1,32 @@
 package com.nighthawk.spring_portfolio.mvc.lightboard;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.util.*;
 
 @RestController
-@RequestMapping("/api/lightboard")
+@RequestMapping("/api/lightboard/")
 public class LightBoardApiController {
 
+    private LightBoard lightBoard;
+    private JsonNode json;
 
-    @GetMapping("/dimensions/{bRows}/{bCols}")
-    public ResponseEntity<String> calculate(@PathVariable String expression) {
-    
-      LightBoard finalsolve = new LightBoard();
+    @GetMapping("/make/{rows}/{cols}")
+    public ResponseEntity<JsonNode> generateLightBoard(@PathVariable int rows, @PathVariable int cols) throws JsonMappingException, JsonProcessingException {
+        lightBoard = new LightBoard(rows, cols);
 
-        
-      String json = finalsolve.toString();
+        ObjectMapper mapper = new ObjectMapper(); 
+        json = mapper.readTree(lightBoard.toString()); 
 
-
-      return ResponseEntity.ok(json);  
+        return ResponseEntity.ok(json);
     }
-
 }
-
